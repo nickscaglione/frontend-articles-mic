@@ -14,6 +14,14 @@
   color: white;
 }
 
+tr {
+  width: 100%
+}
+
+tr.title {
+  width: 50%
+}
+
 .App-intro {
   font-size: large;
 }
