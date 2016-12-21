@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { loadMain, loadMore } from '../actions/fetchArticles.js'
 import ArticleRow from './ArticleRowComponent';
-import $ from 'jquery';
 
 class Table extends Component {
 
@@ -8,6 +8,9 @@ class Table extends Component {
     super()
     this.state = {sortBy: null, pages: 1, articles: [], authorArticles: []}
 
+    this.loadMain = loadMain.bind(this)
+    this.loadMore = loadMore.bind(this)
+    
     // bind user event functions
     this.showTenMore = this.showTenMore.bind(this)
     this.sortByPublished = this.sortByPublished.bind(this)
@@ -31,6 +34,22 @@ class Table extends Component {
     }
   }
 
+  sort(){
+    // set localStorage sortBy preference, since sort actions will always trigger sort()
+    window.localStorage.setItem("PubArt_SORTBY_PREF", this.state.sortBy);
+    let type = (this.state.sortBy === "wordsASC" ? "words" : this.state.sortBy);
+    let sortedArticles = this.showing().sort((a, b)=>{
+      if (a[type] > b[type]) {
+        return -1
+      } else if (a[type] < b[type]) {
+        return 1
+      } else {
+        return 0
+      }
+    })
+    return this.state.sortBy === "wordsASC" ? sortedArticles.reverse() : sortedArticles;
+  }
+
   showTenMore(){
     // If already showing all stored articles, get more articles first
     if (this.showing().length === this.state.articles.length) {
@@ -38,51 +57,6 @@ class Table extends Component {
     }
     // Increment number of showing "pages"
     this.setState({pages: this.state.pages + 1})
-  }
-
-  loadMain(){
-    $.ajax({
-      context: this,
-      url: "more-articles.json",
-      type: "GET",
-      contentType:"application/json; charset=utf-8",
-      dataType:"json"
-    }).done(function(data){
-      this.setState({articles: data})
-    })
-  }
-
-  loadMore(){
-    // typically we'd have a backend for articles, and send along a page number
-    // backend would send back the next n articles
-    // "next n" refers either to the n articles most recently entered into the database
-    //   or the most recent n based on the publish_at attribute
-    //   (if these conditions aren't equivalent)
-
-    $.ajax({
-      context: this,
-      url: "articles.json",
-      type: "GET",
-      contentType:"application/json; charset=utf-8",
-      dataType:"json"
-    }).done(function(data){
-      this.setState({articles: this.state.articles.concat(data)})
-    })
-  }
-
-  sort(){
-    let type = this.state.sortBy === "wordsASC" ? "words" : this.state.sortBy;
-    window.localStorage.setItem("PubArt_SORTBY_PREF", type);
-    let ascendingMultiplier = this.state.sortBy === "wordsASC" ? -1 : 1
-    return this.showing().sort((a, b)=>{
-      if (a[type] > b[type]) {
-        return (-1 * ascendingMultiplier)
-      } else if (a[type] < b[type]) {
-        return (1 * ascendingMultiplier)
-      } else {
-        return 0
-      }
-    })
   }
 
   sortByPublished(){
@@ -136,22 +110,28 @@ class Table extends Component {
       <table>
         <thead><tr>
           <th colSpan="2" className="title-column" > UNPUBLISHED ARTICLES ({this.showing().length}) </th>
+
           <th className="author-column">AUTHOR</th>
+
           <th className="words-column" onClick={this.sortByWords}>
             WORDS
             <div className={(this.state.sortBy === "words" || this.state.sortBy === "wordsASC") ? "currentSort" : "inactiveSort"}>{this.state.sortBy === "wordsASC" ?  "▲" : "▼"}</div>
           </th>
+
           <th className="publish-at-column" onClick={this.sortByPublished}>
             SUBMITTED
             <div className={this.state.sortBy === "publish_at" ? "currentSort" : "inactiveSort"}>&#9660;</div>
           </th>
         </tr></thead>
+
         <tbody>
           {articleRows}
         </tbody>
+
         <tfoot><tr>
           <td colSpan="5"><button hidden={this.state.pages === 6 && !this.isAuthorShowing()} onClick={this.isAuthorShowing() ? this.goBack : this.showTenMore}>{this.isAuthorShowing() ? "Go back" : "Load more articles"}</button></td>
         </tr></tfoot>
+
       </table>
     );
   }
