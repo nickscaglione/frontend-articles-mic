@@ -8,6 +8,8 @@ class ArticleRow extends Component {
   }
 
   handleAuthorClick(event) {
+    // With a database, we might call this function with the this.props.id that we'd pass to this row component, so we could just use the author id in the database query (rather than filtering the articles we have by author name)
+
     this.props.getAuthorArticles(event.target.innerHTML)
   }
 
