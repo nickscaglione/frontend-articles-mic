@@ -101,6 +101,10 @@ tbody tr:nth-child(odd) {
   background-color: #F8F8F8;
 }
 
+tbody tr:hover {
+  background-color: #DEF;
+}
+
 .currentSort {
   margin-top: 5px;
   color: #1DAAFF;
