@@ -35,7 +35,7 @@ class ArticleRow extends Component {
   render(){
     return (
       <tr>
-        <td><img width="50px" height="50px" src={this.props.image}/></td>
+        <td><img width="60px" src={this.props.image}/></td>
         <td><a href={this.props.url}>{this.props.title}</a></td>
         <td><a href="javascript:" onClick={this.handleAuthorClick.bind(this)}>{this.fullName()}</a></td>
         <td className="words">{this.props.words}</td>

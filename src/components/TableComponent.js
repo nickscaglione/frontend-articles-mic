@@ -73,13 +73,15 @@ class Table extends Component {
   }
 
   sort(){
-    let type = this.state.sortBy
-    window.localStorage.setItem("PubArt_SORTBY_PREF", type)
+    let type = this.state.sortBy;
+    window.localStorage.setItem("PubArt_SORTBY_PREF", type);
+    debugger
+    let ascendingMultiplier = this.state.sortBy === "wordsASC" ? -1 : 1
     return this.showing().sort((a, b)=>{
       if (a[type] > b[type]) {
-        return -1
+        return (-1 * ascendingMultiplier)
       } else if (a[type] < b[type]) {
-        return 1
+        return (1 * ascendingMultiplier)
       } else {
         return 0
       }
@@ -95,8 +97,13 @@ class Table extends Component {
   }
 
   sortByWords(){
-    this.state.sortBy === "words" ?
-      this.setState({sortBy: "null"}) : this.setState({sortBy: "words"})
+    if (this.state.sortBy === "words") {
+      this.setState({sortBy: "wordsASC"})
+    } else if (this.state.sortBy === "wordsASC") {
+      this.setState({sortBy: "null"})
+    } else {
+      this.setState({sortBy: "words"})
+    }
   }
 
   getAuthorArticles(fullName){
@@ -131,13 +138,13 @@ class Table extends Component {
     return (
       <table>
         <thead><tr>
-          <th colSpan="2" className="title" > UNPUBLISHED ARTICLES ({this.showing().length}) </th>
-          <th>AUTHOR</th>
-          <th className="words" onClick={this.sortByWords}>
+          <th colSpan="2" className="title-column" > UNPUBLISHED ARTICLES ({this.showing().length}) </th>
+          <th className="author-column">AUTHOR</th>
+          <th className="words-column" onClick={this.sortByWords}>
             WORDS
-            <div className={this.state.sortBy === "words" ? "currentSort" : "inactiveSort"}>&#9660;</div>
+            <div className={(this.state.sortBy === "words" || this.state.sortBy === "wordsASC") ? "currentSort" : "inactiveSort"}>{this.state.sortBy === "wordsASC" ?  "▲" : "▼"}</div>
           </th>
-          <th className="publish_at" onClick={this.sortByPublished}>
+          <th className="publish-at-column" onClick={this.sortByPublished}>
             SUBMITTED
             <div className={this.state.sortBy === "publish_at" ? "currentSort" : "inactiveSort"}>&#9660;</div>
           </th>
