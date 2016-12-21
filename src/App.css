@@ -19,10 +19,6 @@ button {
   transition: background 0.1s linear;
 }
 
-button:hover {
-  background-color: #1DAAFF;
-}
-
 thead {
   color: white;
   background: #a90329; /* Old browsers */
@@ -35,7 +31,7 @@ thead {
 table td,
 table th {
   border: 1px solid #D3D3D3;
-  padding: 10px;
+  padding: 10px 20px;
   position: relative;
   outline: 0;
 }
@@ -93,8 +89,8 @@ td.publish_at {
 
 img {
   display: block;
-  margin: 15px;
-  border: 1px solid black;
+  margin: 1px;
+  border: 1px solid #D3D3D3;
 }
 
 tbody tr:nth-child(even) {
@@ -115,9 +111,9 @@ tbody tr:nth-child(odd) {
   color: gray;
 }
 
-a {
+a, button {
   text-decoration: none;
-  font-weight: bold;
+  font-size-adjust: 30;
   color: #005278;
 }
 
@@ -126,7 +122,15 @@ a:hover {
 }
 
 a:active {
-  color: #009298;
+  color: #1DAAFF;
+}
+
+button:hover {
+  background-color: #1DAAFF;
+}
+
+button:active {
+  background-color: #447298;
 }
 
 th.title-column {
@@ -134,16 +138,11 @@ th.title-column {
 }
 
 th.publish-at-column {
-  width: 170px;
+  width: 150px;
 }
 
 th.author-column {
-  width: 170px;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  width: 150px;
 }
 
 .hoverImage {
