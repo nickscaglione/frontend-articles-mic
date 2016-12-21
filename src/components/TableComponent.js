@@ -41,8 +41,6 @@ class Table extends Component {
   }
 
   loadMain(){
-    // see loadMore()
-
     $.ajax({
       context: this,
       url: "more-articles.json",
@@ -73,9 +71,8 @@ class Table extends Component {
   }
 
   sort(){
-    let type = this.state.sortBy;
+    let type = this.state.sortBy === "wordsASC" ? "words" : this.state.sortBy;
     window.localStorage.setItem("PubArt_SORTBY_PREF", type);
-    debugger
     let ascendingMultiplier = this.state.sortBy === "wordsASC" ? -1 : 1
     return this.showing().sort((a, b)=>{
       if (a[type] > b[type]) {
