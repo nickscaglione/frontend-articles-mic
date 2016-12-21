@@ -8,4 +8,4 @@ Welcome to my frontend dev test, built on vanilla React.js.
 
 ### Usage
 
-- Hopefully intuitive enough to omit this section!
+- Hopefully intuitive enough to omit this section... Enjoy!
