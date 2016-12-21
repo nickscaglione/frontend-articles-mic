@@ -10,7 +10,7 @@ class Table extends Component {
 
     this.loadMain = loadMain.bind(this)
     this.loadMore = loadMore.bind(this)
-    
+
     // bind user event functions
     this.showTenMore = this.showTenMore.bind(this)
     this.sortByPublished = this.sortByPublished.bind(this)
@@ -106,6 +106,7 @@ class Table extends Component {
       )
     })
 
+    // Another backend/database note: the title column header could show the total number of unpublished articles from the database (rather than the current number showing, which doesn't really benefit the user much)
     return (
       <table>
         <thead><tr>
