@@ -79,8 +79,8 @@ table {
   border-collapse: collapse;;
 }
 
-th.words,
-th.publish_at {
+th.words-column,
+th.publish-at-column {
   text-align: center;
   padding-top: 27px;
   padding-bottom: 0px;
@@ -127,6 +127,18 @@ a:hover {
 
 a:active {
   color: #009298;
+}
+
+th.title-column {
+  width: 1200px;
+}
+
+th.publish-at-column {
+  width: 170px;
+}
+
+th.author-column {
+  width: 170px;
 }
 
 @keyframes App-logo-spin {
