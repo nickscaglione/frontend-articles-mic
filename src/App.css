@@ -1,5 +1,6 @@
 .App {
   text-align: left;
+  font-family: 'Open Sans', sans-serif;
 }
 
 button {
@@ -81,7 +82,7 @@ table {
 th.words,
 th.publish_at {
   text-align: center;
-  padding-top: 28px;
+  padding-top: 27px;
   padding-bottom: 0px;
 }
 
@@ -93,6 +94,7 @@ td.publish_at {
 img {
   display: block;
   margin: 15px;
+  border: 1px solid black;
 }
 
 tbody tr:nth-child(even) {
@@ -103,21 +105,38 @@ tbody tr:nth-child(odd) {
   background-color: #F8F8F8;
 }
 
-div.currentSort {
+.currentSort {
   margin-top: 5px;
   color: #1DAAFF;
 }
 
-div.inactiveSort {
+.inactiveSort {
   margin-top: 5px;
   color: gray;
 }
 
 a {
   text-decoration: none;
+  font-weight: bold;
+  color: #005278;
+}
+
+a:hover {
+  color: #447298;
+}
+
+a:active {
+  color: #009298;
 }
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.hoverImage {
+  height: auto;
+  width: auto;
+  position:absolute;
+  z-index:999;
 }
